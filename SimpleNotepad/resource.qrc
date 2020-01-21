@@ -8,5 +8,8 @@
         <file>images/quitIcon.png</file>
         <file>images/redoIcon.png</file>
         <file>images/undoIcon.png</file>
+        <file>images/file.png</file>
+        <file>images/new.png</file>
+        <file>images/save.png</file>
     </qresource>
 </RCC>

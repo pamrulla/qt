@@ -17,5 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QString title;
+    bool isModified;
 };
 #endif // MAINWINDOW_H
