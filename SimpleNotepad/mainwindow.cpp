@@ -7,6 +7,8 @@
 #include <QFileDialog>
 #include <QtGlobal>
 #include <QtDebug>
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -63,8 +65,14 @@ MainWindow::MainWindow(QWidget *parent)
             isModified = false;
             title = name;
             setWindowTitle(title);
+
+            QFile file(name);
+            if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream stream(&file);
+                ui->textEdit->setPlainText(stream.readAll());
+                file.close();
+            }
         }
-        qDebug() << name;
     });
     connect(ui->actionSave, &QAction::triggered, [=](){
         auto name = QFileDialog::getSaveFileName(this, "Save File");
@@ -72,8 +80,13 @@ MainWindow::MainWindow(QWidget *parent)
             isModified = false;
             title = name;
             setWindowTitle(title);
+            QFile file(name);
+            if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream stream(&file);
+                stream << ui->textEdit->toPlainText();
+                file.close();
+            }
         }
-        qDebug() << name;
     });
     connect(ui->textEdit, &QTextEdit::textChanged, [=](){
         if(!isModified) {
