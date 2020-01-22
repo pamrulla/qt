@@ -12,6 +12,13 @@ Item {
         width: 76
         height: 76
         color: 'lightsteelblue'
+
+        MouseArea {
+            id: area
+            width: parent.width
+            height: parent.height
+            onClicked: onlyBorderedRect.visible = !onlyBorderedRect.visible
+        }
     }
 
     Rectangle {
